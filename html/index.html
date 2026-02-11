@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Calculator C++</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <h1>❤️ Love Calculator ❤️</h1>
+        <p>Inserisci i nomi per calcolare la vostra speranza di scopare selvaggiamente</p>
+
+        <div class="inputs">
+            <input type="text" id="n1" placeholder="Inserisci il nome della puttana">
+            <input type="text" id="n2" placeholder="Inserisci il nome del finocchio/seconda puttana">
+        </div>
+
+        <button onclick="calcola()">Calcola Affinità</button>
+
+        <div id="risultato" class="hidden">
+            <div id="punteggio">0%</div>
+            <div id="messaggio"></div>
+        </div>
+    </div>
+
+    <script>
+        async function calcola() {
+            const n1 = document.getElementById('n1').value;
+            const n2 = document.getElementById('n2').value;
+            const resultDiv = document.getElementById('risultato');
+
+            if (!n1 || !n2) {
+                alert("Inserisci entrambi i nomi zoccola ti vedo!");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/calcola?n1=${n1}&n2=${n2}`);
+                const data = await response.json();
+
+                const punteggioTondo = Math.floor(data.punteggio);
+                document.getElementById('punteggio').innerText = punteggioTondo.toLocaleString('it-IT') + "%";
+                document.getElementById('messaggio').innerText = data.messaggio;
+
+                resultDiv.classList.remove('hidden');
+                resultDiv.classList.add('fade-in');
+
+                // --- EFFETTO PIOGGIA DI CUORI ---
+                // Se il punteggio è 1.000.000 (il tuo caso speciale)
+                if (punteggioTondo >= 1000000) {
+                    pioggiaDiCuori();
+                }
+            } catch (error) {
+                alert("Errore: Assicurati che il server C++ sia acceso!");
+            }
+        }
+
+        function pioggiaDiCuori() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerText = '❤️';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    heart.style.opacity = Math.random();
+                    document.body.appendChild(heart);
+
+                    // Rimuove il cuoricino dopo la caduta per non appesantire il PC
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
