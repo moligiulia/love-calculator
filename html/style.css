@@ -14,7 +14,12 @@ body {
     border-radius: 30px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     text-align: center;
-    width: 350px;
+    
+    /* MARGINI LATERALI */
+    width: 85%;          /* Usa l'85% della larghezza dello schermo */
+    max-width: 380px;    /* Non farla diventare troppo larga su computer */
+    box-sizing: border-box; /* Evita che il padding sballi le dimensioni */
+    margin: 20px;        /* Spazio esterno per sicurezza */
 }
 
 h1 {
@@ -24,13 +29,14 @@ h1 {
 }
 
 .inputs input {
-    width: 80%;
+    width: 100%; /* Cambia da 80% a 100% per allinearli ai bordi interni del padding */
     padding: 12px;
     margin: 10px 0;
     border: 2px solid #ffd1dc;
     border-radius: 15px;
     outline: none;
     transition: border 0.3s;
+    box-sizing: border-box; /* Fondamentale quando metti width 100% */
 }
 
     .inputs input:focus {
