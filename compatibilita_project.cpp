@@ -11,6 +11,7 @@ int main() {
     // AGGIORNATO: Cambiamo anche qui per coerenza con i log di Render
     std::cout << "DEBUG: Server in fase di avvio su http://0.0.0.0:8080" << std::endl;
 
+    drogon::app().setDocumentRoot("./html");
     drogon::app().run();
     return 0;
 }
